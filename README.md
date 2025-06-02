@@ -9,4 +9,4 @@ Este proyecto no recolecta ni almacena datos de terceros. Funciona solo con la c
 La idea final del programa es que funcione solo.
 Por ahora solo puede copiar las listas de seguidores y seguidos copiarlas en los txt y luego se comparen. 
 Estoy trabajando para poder automatizar todo, mientras tanto voy ir mandando avisos por el README.
-
+Ahora estuve viendo el selenium para srapear el chrome, sigo aprendiendo lo basico, mañana continuare.
