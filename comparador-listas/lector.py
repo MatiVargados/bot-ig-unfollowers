@@ -14,8 +14,8 @@ def listador_de_instagrams(path) -> list:
 
     return lista_nombres_ig
 
-lista_seguidores = listador_de_instagrams("comparador-listas\Seguidores.txt")
-lista_seguidos = listador_de_instagrams("comparador-listas\Seguidos.txt")
+lista_seguidores = listador_de_instagrams("comparador-listas/Seguidores.txt")
+lista_seguidos = listador_de_instagrams("comparador-listas/Seguidos.txt")
 
 lista_no_me_siguen = []
 
