@@ -14,7 +14,7 @@ Este bot automatiza el proceso de comparar seguidores y seguidos en Instagram ut
 - Automatización parcial con Selenium (ver detalles abajo)
 
 ## ⚙️ Requisitos
-- Python 3.x
+- Python 3.13
 - Google Chrome
 - WebDriver de Chrome (chromedriver)
 - Selenium
