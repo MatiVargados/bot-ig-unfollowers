@@ -20,7 +20,7 @@ Este bot automatiza el proceso de comparar seguidores y seguidos en Instagram ut
 - Selenium
 
 ## 🤖 Automatización
-El código actualmente es **95% automático**. Selenium se encarga de iniciar sesión, abrir las listas de seguidores y seguidos, y comenzar a extraer los datos.
+El código actualmente es **95% automático**. Selenium se encarga de iniciar sesión pero si llegas a tener la **verificacion en dos pasos** tenes que poner manualmente el codigo y darle al boton aceptar para que el programa pueda abrir las listas de seguidores y seguidos, y comenzar a extraer los datos.
 Sin embargo, **no se ha logrado automatizar el scroll completo** en el cuadro emergente de seguidores/seguidos.  
 Cuando veas que el cuadro tiene un **recuadro rojo**, deberás **bajar manualmente el scroll hasta que se carguen todos los usuarios**.
 Una vez hecho eso, el script continúa automáticamente.
