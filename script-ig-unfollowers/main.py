@@ -32,6 +32,8 @@ time.sleep(random.uniform(1.5, 3))
 # oprime el boton para entrar a la cuenta
 driver.find_element(By.XPATH, "/html/body/div[1]/div/div/div[2]/div/div/div[1]/div[1]/div/section/main/article/div[2]/div[1]/div[2]/div/form/div[1]/div[3]/button").click()
 
+print("YA SE INICIO SESION")
+
 # Esperar 5 segundos (en este caso para que la pag cargue de forma correcta)
 time.sleep(random.uniform(10.0, 12.0))
 
@@ -58,15 +60,11 @@ def dar_usuarios(cantidad_usuarios) -> list[str]:
     # Borde para confirmar visualmente que el div es el correcto
     driver.execute_script("arguments[0].style.border='2px solid red'", scroll_box)
     
-    cantidad_usuarios_cargada = 0
-    bandera_unica = False
-    usuario_repetido = 0
+    print("BAJA EL SCROLL PARA PODER CARGAR TODOS LOS USUARIOS")
 
-    primera_iteracion = False
-    segunda_iteracion = False
-    tercera_iteracion = False
-    cuarta_iteracion = False
-    quinta_iteracion = False
+    cantidad_usuarios_cargada = 0
+    iteracion = 0
+    terminar_while = False
 
     while cantidad_usuarios > cantidad_usuarios_cargada:
         driver.execute_script("arguments[0].scrollTop += 200", scroll_box)
@@ -77,30 +75,25 @@ def dar_usuarios(cantidad_usuarios) -> list[str]:
         if (cantidad_usuarios - ((5 / cantidad_usuarios) * 100)) < cantidad_usuarios_cargada:
 
                 # va a revisar si se repiten 5 veces la misma cantidad de usuarios cargados
-                # por si hay cuentas muertas
-                usuario_repetido = cantidad_usuarios_cargada
+                # por si hay cuentas muertas (usualmente las cuentas muertas son - del 5% de cantidad de cuentas totales)
+                match iteracion:
+                    case 0:
+                        iteracion += 1
+                    case 1:
+                        iteracion += 1
+                    case 2:
+                        iteracion += 1
+                    case 3:
+                        iteracion += 1
+                    case 4:
+                        terminar_while = True
+                        break 
 
-                if primera_iteracion == False:
-                    primera_iteracion = True
-                
-                elif primera_iteracion == True :
-                    segunda_iteracion = True
-                
-                elif primera_iteracion == True and segunda_iteracion == True :
-                    tercera_iteracion = True
-                
-                elif primera_iteracion == True and segunda_iteracion == True and tercera_iteracion == True:
-                    cuarta_iteracion = True
-                
-                elif primera_iteracion == True and segunda_iteracion == True and tercera_iteracion == True and cuarta_iteracion == True:
-                    quinta_iteracion = False
-                
-                elif primera_iteracion == True and segunda_iteracion == True and tercera_iteracion == True and cuarta_iteracion == True and quinta_iteracion == True:
-                    if usuario_repetido == cantidad_usuarios_cargada:
-                        break
-                    
+                if terminar_while == True:
+                    break  
+                     
 
-        print(cantidad_usuarios_cargada)
+        print(f"{cantidad_usuarios} / {cantidad_usuarios_cargada}")
 
     # Get followers accounts
     get_followers = driver.find_elements(By.CLASS_NAME, '_ap3a._aaco._aacw._aacx._aad7._aade')
