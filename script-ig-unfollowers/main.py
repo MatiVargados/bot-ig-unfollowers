@@ -34,8 +34,8 @@ driver.find_element(By.XPATH, "/html/body/div[1]/div/div/div[2]/div/div/div[1]/d
 
 print("YA SE INICIO SESION")
 
-# Esperar 5 segundos (en este caso para que la pag cargue de forma correcta)
-time.sleep(random.uniform(10.0, 12.0))
+# Esperar 30 segundos (para ver si tiene que poner la verificacion de 2 pasos)
+time.sleep(30)
 
 link += usuario + "/"
 
