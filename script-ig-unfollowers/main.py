@@ -66,13 +66,14 @@ def dar_usuarios(cantidad_usuarios) -> list[str]:
     iteracion = 0
     terminar_while = False
 
-    while cantidad_usuarios > cantidad_usuarios_cargada:
+    while cantidad_usuarios > cantidad_usuarios_cargada and terminar_while == False:
         driver.execute_script("arguments[0].scrollTop += 200", scroll_box)
         time.sleep(1)
         cantidad_usuarios_cargada = len(driver.find_elements(By.CLASS_NAME, '_ap3a._aaco._aacw._aacx._aad7._aade'))
 
-        #cuando llegue al 5% de tus seguidores 
-        if (cantidad_usuarios - ((5 / cantidad_usuarios) * 100)) < cantidad_usuarios_cargada:
+        #cuando llegue a los ultimos 5% de todos tus seguidores 
+        cinco_porciento_restante = cantidad_usuarios - (cantidad_usuarios * 0.05)
+        if cinco_porciento_restante < cantidad_usuarios_cargada:
 
                 # va a revisar si se repiten 5 veces la misma cantidad de usuarios cargados
                 # por si hay cuentas muertas (usualmente las cuentas muertas son - del 5% de cantidad de cuentas totales)
@@ -87,20 +88,17 @@ def dar_usuarios(cantidad_usuarios) -> list[str]:
                         iteracion += 1
                     case 4:
                         terminar_while = True
-                        break 
-
-                if terminar_while == True:
-                    break  
+                        
                      
 
         print(f"{cantidad_usuarios} / {cantidad_usuarios_cargada}")
 
-    # Get followers accounts
-    get_followers = driver.find_elements(By.CLASS_NAME, '_ap3a._aaco._aacw._aacx._aad7._aade')
+    # Dar usuarios
+    get_usuarios = driver.find_elements(By.CLASS_NAME, '_ap3a._aaco._aacw._aacx._aad7._aade')
 
     lista_usuarios = []
 
-    for i in get_followers:
+    for i in get_usuarios:
         usuario = i.text
         lista_usuarios.append(usuario) 
 
