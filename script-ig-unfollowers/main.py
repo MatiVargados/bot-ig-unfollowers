@@ -57,39 +57,29 @@ def dar_usuarios(cantidad_usuarios) -> list[str]:
         EC.presence_of_element_located((By.XPATH, '//div[@role="dialog"]//div[contains(@style, "overflow: hidden auto")]'))
     )
 
-    # Borde para confirmar visualmente que el div es el correcto
+    # Borde rojo para confirmar visualmente que se puede arrancar a manipular (es decir, bajar el scroll)
     driver.execute_script("arguments[0].style.border='2px solid red'", scroll_box)
     
     print("BAJA EL SCROLL PARA PODER CARGAR TODOS LOS USUARIOS")
 
     cantidad_usuarios_cargada = 0
     iteracion = 0
-    terminar_while = False
 
-    while cantidad_usuarios > cantidad_usuarios_cargada and terminar_while == False:
+    while cantidad_usuarios > cantidad_usuarios_cargada:
         driver.execute_script("arguments[0].scrollTop += 200", scroll_box)
         time.sleep(1)
         cantidad_usuarios_cargada = len(driver.find_elements(By.CLASS_NAME, '_ap3a._aaco._aacw._aacx._aad7._aade'))
 
-        #cuando llegue a los ultimos 5% de todos tus seguidores 
+        #cuando llegue a los ultimos 5% de todos tus seguidores (por si hay cuentas muertas [usualmente las cuentas muertas son - del 5% de cantidad de cuentas totales])
         cinco_porciento_restante = cantidad_usuarios - (cantidad_usuarios * 0.05)
         if cinco_porciento_restante < cantidad_usuarios_cargada:
+                # luego de que se sepa que estan en el 5 % de tus seguidores iterara unas ultimas 10 veces 
+                # para que te deje cargar los usuarios que faltan y en caso de que si existan usuarios muertos rompa el bucle
+                # (!solo para cuentas grandes! en caso de que el programa se corte antes de lo debido subanle de 10 hasta lo q necesiten)
+                if iteracion > 10: # <--- (este numero debes aumentar si tu cuenta es muy grande)
+                    break
 
-                # va a revisar si se repiten 5 veces la misma cantidad de usuarios cargados
-                # por si hay cuentas muertas (usualmente las cuentas muertas son - del 5% de cantidad de cuentas totales)
-                match iteracion:
-                    case 0:
-                        iteracion += 1
-                    case 1:
-                        iteracion += 1
-                    case 2:
-                        iteracion += 1
-                    case 3:
-                        iteracion += 1
-                    case 4:
-                        terminar_while = True
-                        
-                     
+                iteracion += 1                 
 
         print(f"{cantidad_usuarios} / {cantidad_usuarios_cargada}")
 
@@ -120,9 +110,9 @@ time.sleep(4)
 
 lista_seguidos = dar_usuarios(cantidad_seguidos)
 
-########################
+#----------------------#
 # COMPARADOR DE LISTAS #
-########################
+
 lista_no_me_siguen = []
 
 for i in range(len(lista_seguidos)):
@@ -135,18 +125,10 @@ for i in range(len(lista_seguidos)):
     if encontrado == False:
         lista_no_me_siguen.append(lista_seguidos[i])
 
-for instagram in lista_no_me_siguen:
-    print("___________________________________")
-    print(instagram)
+for usuario in lista_no_me_siguen:
+    print("-----------------------------------")
+    print(usuario)
+print("-----------------------------------")
 
-print("___________________________________")
-print("\n-----------------------------------")
-
-cantidad_personas_sin_seguirme = len(lista_no_me_siguen)
-if cantidad_personas_sin_seguirme != 1:
-    cuenta = "cuentas"
-else:
-    cuenta = "cuenta"
-
-print(f"No te siguen: {cantidad_personas_sin_seguirme} {cuenta}")
-print("-----------------------------------\n")
+cantidad_usua_sin_seguirme = len(lista_no_me_siguen)
+print(f"No te siguen: {cantidad_usua_sin_seguirme} usuarios")
